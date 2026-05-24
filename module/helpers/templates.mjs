@@ -7,10 +7,7 @@ export const preloadHandlebarsTemplates = async function () {
   return loadTemplates([
     // Actor partials.
     'systems/fvtt-revulture/templates/actor/parts/actor-features.hbs',
-    'systems/fvtt-revulture/templates/actor/parts/actor-items.hbs',
     'systems/fvtt-revulture/templates/actor/parts/actor-spells.hbs',
     'systems/fvtt-revulture/templates/actor/parts/actor-effects.hbs',
-    // Item partials
-    'systems/fvtt-revulture/templates/item/parts/item-effects.hbs',
   ]);
 };

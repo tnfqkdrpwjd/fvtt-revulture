@@ -32,12 +32,12 @@ export class FvttRevultureActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  async getData() {
+  async _prepareContext(options) {
     // Retrieve the data structure from the base sheet. You can inspect or log
     // the context variable to see the structure, but some key properties for
     // sheets are the actor object, the data object, whether or not it's
     // editable, the items array, and the effects array.
-    const context = super.getData();
+    const context = super._prepareContext(options);
 
     // Use a safe clone of the actor data for further operations.
     const actorData = this.document.toPlainObject();
@@ -51,7 +51,6 @@ export class FvttRevultureActorSheet extends ActorSheet {
 
     // Prepare character data and items.
     if (actorData.type == 'character') {
-      this._prepareItems(context);
       this._prepareCharacterData(context);
     }
 
@@ -73,14 +72,14 @@ export class FvttRevultureActorSheet extends ActorSheet {
         rollData: this.actor.getRollData(),
         // Relative UUID resolution
         relativeTo: this.actor,
-      }
+      },
     );
 
     // Prepare active effects
     context.effects = prepareActiveEffectCategories(
       // A generator that returns all effects stored on the actor
       // as well as any items
-      this.actor.allApplicableEffects()
+      this.actor.allApplicableEffects(),
     );
 
     return context;

@@ -1,18 +1,13 @@
 {
   "id": "fvtt-revulture",
   "title": "Fvtt Revulture",
-  "description": "The Fvtt Revulture system for FoundryVTT!",
-  "authors": [
-    {
-      "name": "tnfqkdrpwjd",
-      "discord": "tnfqkdrpwjd"
-    }
-  ],
-  "url": "Replace this with a link to your public repository",
+  "description": "The Revulture system for FoundryVTT!",
+
   "license": "LICENSE.txt",
   "readme": "README.md",
   "bugs": "Replace this with a link to file issues or tickets",
   "changelog": "CHANGELOG.md",
+
   "media": [
     {
       "type": "setup",
@@ -20,13 +15,15 @@
       "thumbnail": "systems/fvtt-revulture/assets/anvil-impact.png"
     }
   ],
+  "esmodules": ["module/fvtt-revulture.mjs"],
+  "styles": ["css/fvtt-revulture.css"],
+  "background": "systems/fvtt-revulture/assets/anvil-impact.png",
+
   "version": "1.0.0",
   "compatibility": {
     "minimum": 13,
     "verified": "13"
   },
-  "esmodules": ["module/fvtt-revulture.mjs"],
-  "styles": ["css/fvtt-revulture.css"],
   "languages": [
     {
       "lang": "en",
@@ -43,12 +40,21 @@
   "packFolders": [],
   "socket": false,
 
+  "grid": {
+    "distance": 5,
+    "units": "ft"
+  },
+
+  "url": "https://github.com/tnfqkdrpwjd/fvtt-revulture/",
   "manifest": "https://github.com/tnfqkdrpwjd/fvtt-revulture/releases/latest/download/system.json",
   "download": "https://github.com/tnfqkdrpwjd/fvtt-revulture/releases/latest/download/system.zip",
 
-  "background": "systems/fvtt-revulture/assets/anvil-impact.png",
-  "gridDistance": 5,
-  "gridUnits": "ft",
-  "primaryTokenAttribute": "health",
-  "secondaryTokenAttribute": "power"
+  "primaryTokenAttribute": false,
+  "secondaryTokenAttribute": false,
+  "authors": [
+    {
+      "name": "tnfqkdrpwjd",
+      "discord": "tnfqkdrpwjd"
+    }
+  ]
 }
