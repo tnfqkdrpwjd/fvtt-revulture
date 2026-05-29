@@ -1,7 +1,8 @@
 {
   "id": "fvtt-revulture",
   "title": "Fvtt Revulture",
-  "description": "The Revulture system for FoundryVTT!",
+
+  "description": "The Fvtt Revulture system for FoundryVTT!",
 
   "license": "LICENSE.txt",
   "readme": "README.md",
@@ -15,15 +16,16 @@
       "thumbnail": "systems/fvtt-revulture/assets/anvil-impact.png"
     }
   ],
-  "esmodules": ["module/fvtt-revulture.mjs"],
-  "styles": ["css/fvtt-revulture.css"],
-  "background": "systems/fvtt-revulture/assets/anvil-impact.png",
 
   "version": "1.0.0",
   "compatibility": {
     "minimum": 13,
     "verified": "13"
   },
+  "esmodules": ["module/fvtt-revulture.mjs"],
+  "styles": ["css/fvtt-revulture.css"],
+  "background": "systems/fvtt-revulture/assets/anvil-impact.png",
+
   "languages": [
     {
       "lang": "en",
