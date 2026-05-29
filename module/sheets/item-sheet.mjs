@@ -9,20 +9,17 @@ import {
  */
 export class FvttRevultureItemSheet extends ItemSheet {
   /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['fvtt-revulture', 'sheet', 'item'],
+  static DEFAULT_OPTIONS = {
+    position: {
       width: 520,
       height: 480,
-      tabs: [
-        {
-          navSelector: '.sheet-tabs',
-          contentSelector: '.sheet-body',
-          initial: 'description',
-        },
-      ],
-    });
-  }
+    },
+    tag: 'form', // The default is "div"
+    window: {
+      icon: 'item icon', // You can now add an icon to the header
+      title: 'item.form.title',
+    },
+  };
 
   /** @override */
   get template() {
@@ -38,9 +35,9 @@ export class FvttRevultureItemSheet extends ItemSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  async getData() {
+  async _prepareContext() {
     // Retrieve base data structure.
-    const context = super.getData();
+    const context = super._prepareContext();
 
     // Use a safe clone of the item data for further operations.
     const itemData = this.document.toPlainObject();
@@ -58,7 +55,7 @@ export class FvttRevultureItemSheet extends ItemSheet {
         rollData: this.item.getRollData(),
         // Relative UUID resolution
         relativeTo: this.item,
-      }
+      },
     );
 
     // Add the item's data to context.data for easier access, as well as flags.
@@ -87,7 +84,7 @@ export class FvttRevultureItemSheet extends ItemSheet {
 
     // Active Effect management
     html.on('click', '.effect-control', (ev) =>
-      onManageActiveEffect(ev, this.item)
+      onManageActiveEffect(ev, this.item),
     );
   }
 }
