@@ -30,6 +30,8 @@
   "TYPES": {
     "Actor": {
       "character": "Character",
+      "chevalier": "Chevalier",
+      "fiancee": "Fiancee",
       "npc": "NPC"
     },
     "Item": {

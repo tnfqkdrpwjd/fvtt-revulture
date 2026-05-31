@@ -29,13 +29,15 @@
 
   "TYPES": {
     "Actor": {
-      "character": "Character",
+      "character": "캐릭터",
+      "chevalier": "슈발리에",
+      "fiancee": "피앙세",
       "npc": "NPC"
     },
     "Item": {
-      "item": "Item",
-      "feature": "Feature",
-      "spell": "Spell"
+      "item": "아이템",
+      "feature": "기능",
+      "spell": "주문"
     }
   }
 }
