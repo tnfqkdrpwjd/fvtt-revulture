@@ -2,6 +2,7 @@ import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
+const { ActorSheetV2 } = foundry.applications.sheets;
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -156,8 +157,8 @@ export class FvttRevultureActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  _onRender(html) {
-    super._onRender(html);
+  _onRender(context, options) {
+    super._onRender(context, options);
 
     // Render the item sheet for viewing/editing prior to the editable check.
     html.on('click', '.item-edit', (ev) => {

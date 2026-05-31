@@ -74,8 +74,8 @@ export class FvttRevultureItemSheet extends ItemSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  _onRender(html) {
-    super._onRender(html);
+  _onRender(context, options) {
+    super._onRender(context, options);
 
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
