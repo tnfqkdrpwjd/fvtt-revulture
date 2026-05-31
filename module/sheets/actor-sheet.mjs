@@ -26,6 +26,11 @@ export class FvttRevultureActorSheet extends ActorSheet {
         contentSelector: '.sheet-body',
         initial: 'features',
       },
+      {
+        navSelector: '.sheet-tabs2',
+        contentSelector: '.sheet-body2',
+        initial: 'features2',
+      },
     ],
   };
 
@@ -151,8 +156,8 @@ export class FvttRevultureActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  activateListeners(html) {
-    super.activateListeners(html);
+  _onRender(html) {
+    super._onRender(html);
 
     // Render the item sheet for viewing/editing prior to the editable check.
     html.on('click', '.item-edit', (ev) => {
