@@ -2,13 +2,16 @@ import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
+const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class FvttRevultureActorSheet extends ActorSheetV2 {
+export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
+  ActorSheetV2,
+) {
   /** @override */
   static DEFAULT_OPTIONS = {
     classes: ['fvtt-revulture', 'sheet', 'actor'],
@@ -36,19 +39,22 @@ export class FvttRevultureActorSheet extends ActorSheetV2 {
   };
 
   /** @override */
-  get template() {
-    return `systems/fvtt-revulture/templates/actor/actor-${this.actor.type}-sheet.hbs`;
-  }
+  static PARTS = {
+    sheet: {
+      template:
+        'systems/fvtt-revulture/templates/actor/actor-character-sheet.hbs',
+    },
+  };
 
   /* -------------------------------------------- */
 
   /** @override */
-  async _prepareContext() {
+  async _prepareContext(options) {
     // Retrieve the data structure from the base sheet. You can inspect or log
     // the context variable to see the structure, but some key properties for
     // sheets are the actor object, the data object, whether or not it's
     // editable, the items array, and the effects array.
-    const context = await super._prepareContext();
+    const context = await super._prepareContext(options);
 
     // Use a safe clone of the actor data for further operations.
     const actorData = this.document.toPlainObject();
@@ -159,53 +165,34 @@ export class FvttRevultureActorSheet extends ActorSheetV2 {
   /** @override */
   _onRender(context, options) {
     super._onRender(context, options);
-
-    // Render the item sheet for viewing/editing prior to the editable check.
-    html.on('click', '.item-edit', (ev) => {
-      const li = ev.currentTarget.closest('.item');
-      const item = this.actor.items.get(target.dataset.itemId);
-      item.sheet.render(true);
-    });
-
-    // -------------------------------------------------------------
-    // Everything below here is only needed if the sheet is editable
-    if (!this.isEditable) return;
-
-    // Add Inventory Item
-    html.on('click', '.item-create', this._onItemCreate.bind(this));
-
-    // Delete Inventory Item
-    html.on('click', '.item-delete', (ev) => {
-      const li = ev.currentTarget.closest('.item');
-      const item = this.actor.items.get(li.dataset.itemId);
-      item.delete();
-      li.slideUp(200, () => this.render(false));
-    });
-
-    // Active Effect management
-    html.on('click', '.effect-control', (ev) => {
-      const row = ev.currentTarget.closest('li');
-      const document =
-        row.dataset.parentId === this.actor.id
-          ? this.actor
-          : this.actor.items.get(row.dataset.parentId);
-      onManageActiveEffect(ev, document);
-    });
-
-    // Rollable abilities.
-    html.on('click', '.rollable', this._onRoll.bind(this));
-
-    // Drag events for macros.
-    if (this.actor.isOwner) {
-      let handler = (ev) => this._onDragStart(ev);
-      html.find('li.item').each((i, li) => {
-        if (li.classList.contains('inventory-header')) return;
-        li.setAttribute('draggable', true);
-        li.addEventListener('dragstart', handler, false);
-      });
-    }
+    const root = this.element;
   }
 
+  async _onItemEdit(event, target) {
+    const item = this.actor.items.get(target.dataset.itemId);
+
+    item?.sheet.render(true);
+  }
+
+  async _onItemDelete(event, target) {
+    const item = this.actor.items.get(target.dataset.itemId);
+
+    await item?.delete();
+  }
+
+  async _onItemCreate(event, target) {
+    const type = target.dataset.type;
+
+    return Item.create(
+      {
+        name: `New ${type}`,
+        type,
+      },
+      {
+        parent: this.actor,
+      },
+    );
+  }
   /**
    * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
    * @param {Event} event   The originating click event
