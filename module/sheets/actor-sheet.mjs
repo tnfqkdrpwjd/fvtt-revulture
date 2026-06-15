@@ -8,7 +8,7 @@ const { ActorSheetV2 } = foundry.applications.sheets;
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class FvttRevultureActorSheet extends ActorSheet {
+export class FvttRevultureActorSheet extends ActorSheetV2 {
   /** @override */
   static DEFAULT_OPTIONS = {
     classes: ['fvtt-revulture', 'sheet', 'actor'],
@@ -48,7 +48,7 @@ export class FvttRevultureActorSheet extends ActorSheet {
     // the context variable to see the structure, but some key properties for
     // sheets are the actor object, the data object, whether or not it's
     // editable, the items array, and the effects array.
-    const context = super._prepareContext();
+    const context = await super._prepareContext();
 
     // Use a safe clone of the actor data for further operations.
     const actorData = this.document.toPlainObject();
@@ -162,8 +162,8 @@ export class FvttRevultureActorSheet extends ActorSheet {
 
     // Render the item sheet for viewing/editing prior to the editable check.
     html.on('click', '.item-edit', (ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const item = this.actor.items.get(li.data('itemId'));
+      const li = ev.currentTarget.closest('.item');
+      const item = this.actor.items.get(target.dataset.itemId);
       item.sheet.render(true);
     });
 
@@ -176,8 +176,8 @@ export class FvttRevultureActorSheet extends ActorSheet {
 
     // Delete Inventory Item
     html.on('click', '.item-delete', (ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const item = this.actor.items.get(li.data('itemId'));
+      const li = ev.currentTarget.closest('.item');
+      const item = this.actor.items.get(li.dataset.itemId);
       item.delete();
       li.slideUp(200, () => this.render(false));
     });
