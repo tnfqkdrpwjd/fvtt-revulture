@@ -57,25 +57,16 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
     const context = await super._prepareContext(options);
 
     // Use a safe clone of the actor data for further operations.
-    const actorData = this.document.toObject();
-
-    // Add the actor's data to context.data for easier access, as well as flags.
-    context.system = actorData.system;
-    context.flags = actorData.flags;
+    context.actor = this.actor;
+    context.system = this.actor.system;
+    context.items = this.actor.items.contents;
 
     // Adding a pointer to CONFIG.FVTT_REVULTURE
     context.config = CONFIG.FVTT_REVULTURE;
 
     // Prepare character data and items.
-    if (actorData.type == 'character') {
-      this._prepareItems(context);
-      this._prepareCharacterData(context);
-    }
-
-    // Prepare NPC data and items.
-    if (actorData.type == 'npc') {
-      this._prepareItems(context);
-    }
+    this._prepareItems(context);
+    this._prepareCharacterData(context);
 
     // Enrich biography info for display
     // Enrichment turns text like `[[/r 1d20]]` into buttons
