@@ -17,9 +17,23 @@
     }
   ],
 
-  "version": "0.0.1",
+  "documentTypes": {
+    "Actor": {
+      "character": {},
+      "chevalier": {},
+      "fiancee": {},
+      "npc": {}
+    },
+    "Item": {
+      "item": {},
+      "feature": {},
+      "spell": {}
+    }
+  },
+
+  "version": "0.0.2",
   "compatibility": {
-    "minimum": 13,
+    "minimum": "13",
     "verified": "13"
   },
   "esmodules": ["module/fvtt-revulture.mjs"],
