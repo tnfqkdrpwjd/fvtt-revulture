@@ -7,14 +7,23 @@ import {
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
  */
-export class FvttRevultureItemSheet extends ItemSheet {
+
+// 수정
+const { HandlebarsApplicationMixin } = foundry.applications.api;
+const { ItemSheetV2 } = foundry.applications.sheets;
+
+export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
+  ItemSheetV2,
+) {
   /** @override */
   static DEFAULT_OPTIONS = {
+    actions: {
+      effectControl: FvttRevultureItemSheet._onEffectControl,
+    },
     position: {
       width: 520,
       height: 480,
     },
-    tag: 'form', // The default is "div"
     window: {
       icon: 'item icon', // You can now add an icon to the header
       title: 'item.form.title',
@@ -22,22 +31,18 @@ export class FvttRevultureItemSheet extends ItemSheet {
   };
 
   /** @override */
-  get template() {
-    const path = 'systems/fvtt-revulture/templates/item';
-    // Return a single sheet for all item types.
-    // return `${path}/item-sheet.hbs`;
-
-    // Alternatively, you could use the following return statement to do a
-    // unique item sheet by type, like `weapon-sheet.hbs`.
-    return `${path}/item-${this.item.type}-sheet.hbs`;
-  }
+  static PARTS = {
+    sheet: {
+      template: 'systems/fvtt-revulture/templates/item/item-sheet.hbs',
+    },
+  };
 
   /* -------------------------------------------- */
 
   /** @override */
-  async _prepareContext() {
+  async _prepareContext(options) {
     // Retrieve base data structure.
-    const context = super._prepareContext();
+    const context = super._prepareContext(options);
 
     // Use a safe clone of the item data for further operations.
     const itemData = this.document.toPlainObject();
@@ -83,8 +88,5 @@ export class FvttRevultureItemSheet extends ItemSheet {
     // Roll handlers, click handlers, etc. would go here.
 
     // Active Effect management
-    html.on('click', '.effect-control', (ev) =>
-      onManageActiveEffect(ev, this.item),
-    );
   }
 }

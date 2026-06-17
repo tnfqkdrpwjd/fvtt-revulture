@@ -14,7 +14,16 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
 ) {
   /** @override */
   static DEFAULT_OPTIONS = {
+    actions: {
+      itemEdit: FvttRevultureActorSheet.onItemEdit,
+      itemDelete: FvttRevultureActorSheet.onItemDelete,
+      itemCreate: FvttRevultureActorSheet.onItemCreate,
+      roll: FvttRevultureActorSheet.onRoll,
+    },
     classes: ['fvtt-revulture', 'sheet', 'actor'],
+    form: '',
+    id: 'fvtt-revulture-actor-sheet',
+
     position: {
       width: 600,
       height: 600,
@@ -24,18 +33,6 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
       icon: 'actor icon', // You can now add an icon to the header
       title: 'actor.form.title',
     },
-    tabs: [
-      {
-        navSelector: '.sheet-tabs',
-        contentSelector: '.sheet-body',
-        initial: 'features',
-      },
-      {
-        navSelector: '.sheet-tabs2',
-        contentSelector: '.sheet-body2',
-        initial: 'features2',
-      },
-    ],
   };
 
   /** @override */
@@ -159,19 +156,19 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
     const root = this.element;
   }
 
-  async _onItemEdit(event, target) {
+  async onItemEdit(event, target) {
     const item = this.actor.items.get(target.dataset.itemId);
 
     item?.sheet.render(true);
   }
 
-  async _onItemDelete(event, target) {
+  async onItemDelete(event, target) {
     const item = this.actor.items.get(target.dataset.itemId);
 
     await item?.delete();
   }
 
-  async _onItemCreate(event, target) {
+  async onItemCreate(event, target) {
     const type = target.dataset.type;
 
     return Item.create(
@@ -184,18 +181,8 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
       },
     );
   }
-  /**
-   * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
-   * @param {Event} event   The originating click event
-   * @private
-   */
 
-  /**
-   * Handle clickable rolls.
-   * @param {Event} event   The originating click event
-   * @private
-   */
-  _onRoll(event) {
+  onRoll(event) {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
