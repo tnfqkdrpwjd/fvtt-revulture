@@ -61,6 +61,12 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
     // Adding a pointer to CONFIG.FVTT_REVULTURE
     context.config = CONFIG.FVTT_REVULTURE;
 
+    //add tabs
+    context.tabs = this._getTabs();
+
+    //add editable
+    context.editable = this.isEditable;
+
     // Prepare character data and items.
     this._prepareItems(context);
     this._prepareCharacterData(context);
@@ -149,6 +155,26 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
   }
 
   /* -------------------------------------------- */
+  tabGroups = { primary: 'features' };
+
+  _getTabs() {
+    const tabs = {
+      features: { id: 'features', group: 'primary', label: 'Features' },
+      description: {
+        id: 'description',
+        group: 'primary',
+        label: 'Description',
+      },
+      items: { id: 'items', group: 'primary', label: 'Items' },
+      spells: { id: 'spells', group: 'primary', label: 'Spells' },
+      effects: { id: 'effects', group: 'primary', label: 'Effects' },
+    };
+    for (const v of Object.values(tabs)) {
+      v.active = this.tabGroups[v.group] === v.id;
+      v.cssClass = v.active ? 'active' : '';
+    }
+    return tabs;
+  }
 
   /** @override */
   _onRender(context, options) {
@@ -156,19 +182,19 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
     const root = this.element;
   }
 
-  async onItemEdit(event, target) {
+  static async onItemEdit(event, target) {
     const item = this.actor.items.get(target.dataset.itemId);
 
     item?.sheet.render(true);
   }
 
-  async onItemDelete(event, target) {
+  static async onItemDelete(event, target) {
     const item = this.actor.items.get(target.dataset.itemId);
 
     await item?.delete();
   }
 
-  async onItemCreate(event, target) {
+  static async onItemCreate(event, target) {
     const type = target.dataset.type;
 
     return Item.create(
@@ -182,24 +208,18 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
     );
   }
 
-  onRoll(event) {
-    event.preventDefault();
-    const element = event.currentTarget;
-    const dataset = element.dataset;
+  static onRoll(event, target) {
+    const dataset = target.dataset;
 
-    // Handle item rolls.
-    if (dataset.rollType) {
-      if (dataset.rollType == 'item') {
-        const itemId = element.closest('.item').dataset.itemId;
-        const item = this.actor.items.get(itemId);
-        if (item) return item.roll();
-      }
+    if (dataset.rollType === 'item') {
+      const itemId = target.closest('.item')?.dataset.itemId;
+      const item = this.actor.items.get(itemId);
+      if (item) return item.roll();
     }
 
-    // Handle rolls that supply the formula directly.
     if (dataset.roll) {
-      let label = dataset.label ? `[ability] ${dataset.label}` : '';
-      let roll = new Roll(dataset.roll, this.actor.getRollData());
+      const label = dataset.label ? `[ability] ${dataset.label}` : '';
+      const roll = new Roll(dataset.roll, this.actor.getRollData());
       roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
