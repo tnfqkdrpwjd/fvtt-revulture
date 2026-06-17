@@ -28,6 +28,7 @@ export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
       icon: 'item icon', // You can now add an icon to the header
       title: 'item.form.title',
     },
+    form: { submitOnChange: true },
   };
 
   /** @override */
@@ -37,12 +38,29 @@ export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
     },
   };
 
+  tabGroups = { primary: 'description' };
+
+  _getTabs() {
+    const tabs = {
+      description: {
+        id: 'description',
+        group: 'primary',
+        label: 'Description',
+      },
+      attributes: { id: 'attributes', group: 'primary', label: 'Attributes' },
+    };
+    for (const v of Object.values(tabs)) {
+      v.active = this.tabGroups[v.group] === v.id;
+      v.cssClass = v.active ? 'active' : '';
+    }
+    return tabs;
+  }
   /* -------------------------------------------- */
 
   /** @override */
   async _prepareContext(options) {
     // Retrieve base data structure.
-    const context = super._prepareContext(options);
+    const context = await super._prepareContext(options);
 
     // Use a safe clone of the item data for further operations.
     const itemData = this.document.toPlainObject();
@@ -73,6 +91,8 @@ export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
     // Prepare active effects for easier access
     context.effects = prepareActiveEffectCategories(this.item.effects);
 
+    //get the tabs for the item sheet
+    context.tabs = this._getTabs();
     return context;
   }
 

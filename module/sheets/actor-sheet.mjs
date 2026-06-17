@@ -21,7 +21,7 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
       roll: FvttRevultureActorSheet.onRoll,
     },
     classes: ['fvtt-revulture', 'sheet', 'actor'],
-    form: '',
+    form: { submitOnChange: true },
     id: 'fvtt-revulture-actor-sheet',
 
     position: {
@@ -30,7 +30,7 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
     },
     tag: 'form', // The default is "div"
     window: {
-      icon: 'actor icon', // You can now add an icon to the header
+      icon: 'actor icon', // You can now add an icon to the header //css
       title: 'actor.form.title',
     },
   };
