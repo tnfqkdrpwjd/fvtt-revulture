@@ -97,6 +97,8 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
       this.actor.allApplicableEffects(),
     );
     console.log('sheet render');
+    console.log(context.actor);
+    console.log(context.system);
     return context;
   }
 
@@ -117,11 +119,14 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
   async _onSubmitForm(formConfig, event) {
     console.log('FORM SUBMIT');
 
-    const result = await super._onSubmitForm(formConfig, event);
+    console.log('this.form', this.form);
 
-    console.log('ACTOR DATA', this.actor.toObject());
+    const fd = new foundry.applications.ux.FormDataExtended(this.form);
 
-    return result;
+    console.log('FORM DATA');
+    console.log(fd.object);
+
+    return super._onSubmitForm(formConfig, event);
   }
   /**
    * Organize and classify Items for Actor sheets.
