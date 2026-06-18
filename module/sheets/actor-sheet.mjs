@@ -25,7 +25,10 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
       effectDelete: FvttRevultureActorSheet.prototype.onEffectDelete,
     },
     classes: ['fvtt-revulture', 'sheet', 'actor'],
-    form: { submitOnChange: true },
+    form: {
+      submitOnChange: true,
+      submitOnClose: true,
+    },
     id: 'fvtt-revulture-actor-sheet',
 
     position: {
@@ -93,7 +96,7 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
       // as well as any items
       this.actor.allApplicableEffects(),
     );
-
+    console.log('sheet render');
     return context;
   }
 
@@ -107,6 +110,19 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
     // or setup anything else that's specific to this type
   }
 
+  async _prepareSubmitData(event, form, formData) {
+    return formData.object;
+  }
+
+  async _onSubmitForm(formConfig, event) {
+    console.log('FORM SUBMIT');
+
+    const result = await super._onSubmitForm(formConfig, event);
+
+    console.log('ACTOR DATA', this.actor.toObject());
+
+    return result;
+  }
   /**
    * Organize and classify Items for Actor sheets.
    *
