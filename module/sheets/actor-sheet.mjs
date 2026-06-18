@@ -19,6 +19,7 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
       itemDelete: FvttRevultureActorSheet.onItemDelete,
       itemCreate: FvttRevultureActorSheet.onItemCreate,
       roll: FvttRevultureActorSheet.onRoll,
+      toggleEffect: onManageActiveEffect,
     },
     classes: ['fvtt-revulture', 'sheet', 'actor'],
     form: { submitOnChange: true },
@@ -30,7 +31,7 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
     },
     tag: 'form', // The default is "div"
     window: {
-      icon: 'actor icon', // You can now add an icon to the header //css
+      icon: 'fa-solid fa-user', // You can now add an icon to the header //css
       title: 'actor.form.title',
     },
   };
@@ -73,19 +74,15 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
 
     // Enrich biography info for display
     // Enrichment turns text like `[[/r 1d20]]` into buttons
-    context.enrichedBiography = await TextEditor.enrichHTML(
-      this.actor.system.biography,
-      {
-        // Whether to show secret blocks in the finished html
-        secrets: this.document.isOwner,
-        // Necessary in v11, can be removed in v12
-        async: true,
-        // Data to fill in for inline rolls
-        rollData: this.actor.getRollData(),
-        // Relative UUID resolution
-        relativeTo: this.actor,
-      },
-    );
+    context.enrichedBiography =
+      await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        this.actor.system.biography,
+        {
+          secrets: this.document.isOwner,
+          rollData: this.actor.getRollData(),
+          relativeTo: this.actor,
+        },
+      );
 
     // Prepare active effects
     context.effects = prepareActiveEffectCategories(
@@ -179,7 +176,7 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
   /** @override */
   _onRender(context, options) {
     super._onRender(context, options);
-    const root = this.element;
+    // const root = this.element;
   }
 
   static async onItemEdit(event, target) {
