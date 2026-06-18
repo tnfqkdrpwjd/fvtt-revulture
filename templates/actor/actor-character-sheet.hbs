@@ -1,34 +1,93 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
-  {{!-- Sheet Header --}}
   <header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <img
+      class="profile-img"
+      src="{{actor.img}}"
+      data-edit="img"
+      title="{{actor.name}}"
+      height="100"
+      width="100"
+    />
+
     <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+
+      <h1 class="charname">
+        <input
+          name="name"
+          type="text"
+          value="{{actor.name}}"
+          placeholder="Name"
+        />
+      </h1>
+
       <div class="resources grid grid-3col">
 
         <div class="resource flex-group-center">
-          <label for="system.health.value" class="resource-label">Health</label>
+          <label for="health-value" class="resource-label">
+            Health
+          </label>
+
           <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
-          <span> / </span>
-          <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number"/>
+            <input
+              id="health-value"
+              type="text"
+              name="system.health.value"
+              value="{{system.health.value}}"
+              data-dtype="Number"
+            />
+
+            <span>/</span>
+
+            <input
+              id="health-max"
+              type="text"
+              name="system.health.max"
+              value="{{system.health.max}}"
+              data-dtype="Number"
+            />
           </div>
         </div>
 
         <div class="resource flex-group-center">
-          <label for="system.power.value" class="resource-label">Power</label>
+          <label for="power-value" class="resource-label">
+            Power
+          </label>
+
           <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number"/>
-          <span> / </span>
-          <input type="text" name="system.power.max" value="{{system.power.max}}" data-dtype="Number"/>
+            <input
+              id="power-value"
+              type="text"
+              name="system.power.value"
+              value="{{system.power.value}}"
+              data-dtype="Number"
+            />
+
+            <span>/</span>
+
+            <input
+              id="power-max"
+              type="text"
+              name="system.power.max"
+              value="{{system.power.max}}"
+              data-dtype="Number"
+            />
           </div>
         </div>
 
         <div class="resource flex-group-center">
-          <label for="system.attributes.level.value" class="resource-label">Level</label>
+          <label for="level-value" class="resource-label">
+            Level
+          </label>
+
           <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" name="system.attributes.level.value" value="{{system.attributes.level.value}}" data-dtype="Number"/>
+            <input
+              id="level-value"
+              type="text"
+              name="system.attributes.level.value"
+              value="{{system.attributes.level.value}}"
+              data-dtype="Number"
+            />
           </div>
         </div>
 
@@ -36,47 +95,97 @@
     </div>
   </header>
 
-  {{!-- Sheet Tab Navigation --}}
-  {{!-- data-action="tab" 추가: ApplicationV2가 인식하는 예약 액션. 없으면 탭 클릭이 동작 안 함 --}}
-  {{!-- 각 탭에 {{tabs.xxx.cssClass}} 로 active 클래스를 직접 부여 (V2는 자동 바인딩 안 해줌) --}}
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item {{tabs.features.cssClass}}" data-action="tab" data-tab="features">Features</a>
-    <a class="item {{tabs.description.cssClass}}" data-action="tab" data-tab="description">Description</a>
-    <a class="item {{tabs.items.cssClass}}" data-action="tab" data-tab="items">Items</a>
-    <a class="item {{tabs.spells.cssClass}}" data-action="tab" data-tab="spells">Spells</a>
-    <a class="item {{tabs.effects.cssClass}}" data-action="tab" data-tab="effects">Effects</a>
+
+    <a
+      class="item {{tabs.features.cssClass}}"
+      data-action="changeTab"
+      data-tab="features">
+      Features
+    </a>
+
+    <a
+      class="item {{tabs.description.cssClass}}"
+      data-action="changeTab"
+      data-tab="description">
+      Description
+    </a>
+
+    <a
+      class="item {{tabs.items.cssClass}}"
+      data-action="changeTab"
+      data-tab="items">
+      Items
+    </a>
+
+    <a
+      class="item {{tabs.spells.cssClass}}"
+      data-action="changeTab"
+      data-tab="spells">
+      Spells
+    </a>
+
+    <a
+      class="item {{tabs.effects.cssClass}}"
+      data-action="changeTab"
+      data-tab="effects">
+      Effects
+    </a>
+
   </nav>
 
-  {{!-- Sheet Body --}}
   <section class="sheet-body">
 
-    {{!-- Owned Features Tab --}}
-    {{!-- 각 .tab 에도 cssClass 를 붙여줘야 활성 탭만 보이게 하는 CSS(display:none 등)가 정상 동작함 --}}
-    <div class="tab features {{tabs.features.cssClass}}" data-group="primary" data-tab="features">
+    <div
+      class="tab features {{tabs.features.cssClass}}"
+      data-group="primary"
+      data-tab="features">
+
       <section class="grid grid-3col">
+
         <aside class="sidebar">
 
           <div class="abilities flexcol">
+
             {{#each system.abilities as |ability key|}}
+
             <div class="ability flexrow flex-group-center">
-              {{!-- label, span 둘 다 data-action="roll" 추가: 안 붙으면 클릭해도 굴림 실행 안 됨 --}}
+
               <label
-                for="system.abilities.{{key}}.value"
+                for="ability-{{key}}"
                 class="resource-label rollable flexlarge align-left"
                 data-action="roll"
                 data-roll="d20+@abilities.{{key}}.mod"
-                data-label="{{localize (lookup @root.config.abilities key)}}"
-              >{{localize (lookup @root.config.abilities key)}}</label>
-              <input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number"/>
+                data-label="{{localize (lookup @root.config.abilities key)}}">
+
+                {{localize (lookup @root.config.abilities key)}}
+
+              </label>
+
+              <input
+                id="ability-{{key}}"
+                type="text"
+                name="system.abilities.{{key}}.value"
+                value="{{ability.value}}"
+                data-dtype="Number"
+              />
+
               <span
                 class="ability-mod rollable"
                 data-action="roll"
                 data-roll="d20+@abilities.{{key}}.mod"
-                data-label="{{localize (lookup @root.config.abilities key)}}"
-              >{{numberFormat ability.mod decimals=0 sign=true}}</span>
+                data-label="{{localize (lookup @root.config.abilities key)}}">
+
+                {{numberFormat ability.mod decimals=0 sign=true}}
+
+              </span>
+
             </div>
+
             {{/each}}
+
           </div>
+
         </aside>
 
         <section class="main grid-span-2">
@@ -84,28 +193,47 @@
         </section>
 
       </section>
+
     </div>
 
-    {{!-- Biography Tab --}}
-    {{!-- data-tab="description" 인데 클래스명이 biography 로 되어있어서 description 으로 맞춤 (탭 nav 의 data-tab 값과 .tab 의 data-tab 값이 일치해야 토글이 정확히 동작함) --}}
-    <div class="tab description {{tabs.description.cssClass}}" data-group="primary" data-tab="description">
-      {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
+    <div
+      class="tab description {{tabs.description.cssClass}}"
+      data-group="primary"
+      data-tab="description">
+
+      <div class="biography-content">
+        {{{enrichedBiography}}}
+      </div>
+
     </div>
 
-    {{!-- Owned Items Tab --}}
-    <div class="tab items {{tabs.items.cssClass}}" data-group="primary" data-tab="items">
-       {{> "systems/fvtt-revulture/templates/actor/parts/actor-items.hbs"}}
+    <div
+      class="tab items {{tabs.items.cssClass}}"
+      data-group="primary"
+      data-tab="items">
+
+      {{> "systems/fvtt-revulture/templates/actor/parts/actor-items.hbs"}}
+
     </div>
 
-    {{!-- Owned Spells Tab --}}
-    <div class="tab spells {{tabs.spells.cssClass}}" data-group="primary" data-tab="spells">
+    <div
+      class="tab spells {{tabs.spells.cssClass}}"
+      data-group="primary"
+      data-tab="spells">
+
       {{> "systems/fvtt-revulture/templates/actor/parts/actor-spells.hbs"}}
+
     </div>
 
-    {{!-- Active Effects Tab --}}
-    <div class="tab effects flexcol {{tabs.effects.cssClass}}" data-group="primary" data-tab="effects">
+    <div
+      class="tab effects flexcol {{tabs.effects.cssClass}}"
+      data-group="primary"
+      data-tab="effects">
+
       {{> "systems/fvtt-revulture/templates/actor/parts/actor-effects.hbs"}}
+
     </div>
 
   </section>
+
 </form>

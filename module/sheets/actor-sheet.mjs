@@ -13,13 +13,13 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
   ActorSheetV2,
 ) {
   /** @override */
-  static DEFAULT_OPTIONS = {
+  static DEFAULT_OPTIONS = foundry.utils.mergeObject(super.DEFAULT_OPTIONS, {
     actions: {
-      itemEdit: FvttRevultureActorSheet.onItemEdit,
-      itemDelete: FvttRevultureActorSheet.onItemDelete,
-      itemCreate: FvttRevultureActorSheet.onItemCreate,
-      roll: FvttRevultureActorSheet.onRoll,
-      toggleEffect: onManageActiveEffect,
+      itemEdit: 'onItemEdit',
+      itemDelete: 'onItemDelete',
+      itemCreate: 'onItemCreate',
+      roll: 'onRoll',
+      changeTab: '_onChangeTab',
     },
     classes: ['fvtt-revulture', 'sheet', 'actor'],
     form: { submitOnChange: true },
@@ -34,7 +34,7 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
       icon: 'fa-solid fa-user', // You can now add an icon to the header //css
       title: 'actor.form.title',
     },
-  };
+  });
 
   /** @override */
   static PARTS = {
@@ -76,7 +76,7 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
     // Enrichment turns text like `[[/r 1d20]]` into buttons
     context.enrichedBiography =
       await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-        this.actor.system.biography,
+        this.actor.system.biography ?? '',
         {
           secrets: this.document.isOwner,
           rollData: this.actor.getRollData(),
@@ -174,55 +174,43 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
   }
 
   /** @override */
-  _onRender(context, options) {
-    super._onRender(context, options);
-    // const root = this.element;
-  }
 
-  static async onItemEdit(event, target) {
-    const item = this.actor.items.get(target.dataset.itemId);
+  async onItemEdit(event, target) {
+    const li = target.closest('[data-item-id]');
+    const item = this.actor.items.get(li.dataset.itemId);
 
     item?.sheet.render(true);
   }
 
-  static async onItemDelete(event, target) {
-    const item = this.actor.items.get(target.dataset.itemId);
+  async onItemDelete(event, target) {
+    const li = target.closest('[data-item-id]');
+    const item = this.actor.items.get(li.dataset.itemId);
 
     await item?.delete();
   }
 
-  static async onItemCreate(event, target) {
+  async onItemCreate(event, target) {
     const type = target.dataset.type;
 
-    return Item.create(
+    return this.actor.createEmbeddedDocuments('Item', [
       {
         name: `New ${type}`,
         type,
       },
-      {
-        parent: this.actor,
-      },
-    );
+    ]);
   }
 
-  static onRoll(event, target) {
-    const dataset = target.dataset;
+  onRoll(event, target) {
+    const li = target.closest('[data-item-id]');
 
-    if (dataset.rollType === 'item') {
-      const itemId = target.closest('.item')?.dataset.itemId;
-      const item = this.actor.items.get(itemId);
-      if (item) return item.roll();
+    if (target.dataset.rollType === 'item') {
+      const item = this.actor.items.get(li.dataset.itemId);
+      return item?.roll();
     }
+  }
 
-    if (dataset.roll) {
-      const label = dataset.label ? `[ability] ${dataset.label}` : '';
-      const roll = new Roll(dataset.roll, this.actor.getRollData());
-      roll.toMessage({
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: label,
-        rollMode: game.settings.get('core', 'rollMode'),
-      });
-      return roll;
-    }
+  _onChangeTab(event, target) {
+    this.tabGroups.primary = target.dataset.tab;
+    this.render(false);
   }
 }
