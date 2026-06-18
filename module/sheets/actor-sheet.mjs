@@ -15,17 +15,17 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
   /** @override */
   static DEFAULT_OPTIONS = foundry.utils.mergeObject(super.DEFAULT_OPTIONS, {
     actions: {
-      itemEdit: 'onItemEdit',
-      itemDelete: 'onItemDelete',
-      itemCreate: 'onItemCreate',
-      roll: 'onRoll',
+      itemEdit: FvttRevultureActorSheet.prototype.onItemEdit,
+      itemDelete: FvttRevultureActorSheet.prototype.onItemDelete,
+      itemCreate: FvttRevultureActorSheet.prototype.onItemCreate,
+      roll: FvttRevultureActorSheet.prototype.onRoll,
 
-      changeTab: '_onChangeTab',
+      changeTab: FvttRevultureActorSheet.prototype._onChangeTab,
 
-      effectCreate: 'onEffectCreate',
-      effectToggle: 'onEffectToggle',
-      effectEdit: 'onEffectEdit',
-      effectDelete: 'onEffectDelete',
+      effectCreate: FvttRevultureActorSheet.prototype.onEffectCreate,
+      effectToggle: FvttRevultureActorSheet.prototype.onEffectToggle,
+      effectEdit: FvttRevultureActorSheet.prototype.onEffectEdit,
+      effectDelete: FvttRevultureActorSheet.prototype.onEffectDelete,
     },
     classes: ['fvtt-revulture', 'sheet', 'actor'],
     form: { submitOnChange: true },
