@@ -19,7 +19,13 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
       itemDelete: 'onItemDelete',
       itemCreate: 'onItemCreate',
       roll: 'onRoll',
+
       changeTab: '_onChangeTab',
+
+      effectCreate: 'onEffectCreate',
+      effectToggle: 'onEffectToggle',
+      effectEdit: 'onEffectEdit',
+      effectDelete: 'onEffectDelete',
     },
     classes: ['fvtt-revulture', 'sheet', 'actor'],
     form: { submitOnChange: true },
@@ -212,5 +218,21 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
   _onChangeTab(event, target) {
     this.tabGroups.primary = target.dataset.tab;
     this.render(false);
+  }
+
+  async onEffectCreate(event, target) {
+    return onManageActiveEffect.call(this, event);
+  }
+
+  async onEffectToggle(event, target) {
+    return onManageActiveEffect.call(this, event);
+  }
+
+  async onEffectEdit(event, target) {
+    return onManageActiveEffect.call(this, event);
+  }
+
+  async onEffectDelete(event, target) {
+    return onManageActiveEffect.call(this, event);
   }
 }

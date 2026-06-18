@@ -1,49 +1,75 @@
 <ol class='items-list'>
-  {{#each spells as |spells spellLevel|}}
+
+  {{#each spells as |spellList spellLevel|}}
+
     <li class='item flexrow items-header'>
       <div class='item-name'>
         {{localize 'FVTT_REVULTURE.Item.Spell.SpellLVL' level=spellLevel}}
       </div>
+
       <div class='item-controls'>
         <a
-          class='item-control item-create'
-          title='{{localize "DOCUMENT.Create" type='Spell'}}'
+          data-action='itemCreate'
           data-type='spell'
           data-spell-level='{{spellLevel}}'
+          title='{{localize "DOCUMENT.Create"}}'
         >
           <i class='fas fa-plus'></i>
           {{localize 'FVTT_REVULTURE.Item.Spell.AddLVL' level=spellLevel}}
         </a>
       </div>
     </li>
-    {{#each spells as |item id|}}
-      <li class='item flexrow' data-item-id='{{item._id}}'>
+
+    {{#each spellList as |item|}}
+
+      <li class='item flexrow' data-item-id='{{item.id}}'>
+
         <div class='item-name flexrow'>
+
           <div class='item-image'>
-            <a class='rollable' data-roll-type='item'><img
+            <a
+              class='rollable'
+              data-action='roll'
+              data-roll-type='item'
+              data-item-id='{{item.id}}'
+            >
+              <img
                 src='{{item.img}}'
                 title='{{item.name}}'
                 width='24'
                 height='24'
-              /></a>
+              />
+            </a>
           </div>
+
           <h4>{{item.name}}</h4>
+
         </div>
+
         <div class='item-controls'>
+
           <a
-            class='item-control item-edit'
-            title='{{localize "DOCUMENT.Edit" type='spell'}}'
+            data-action='itemEdit'
+            data-item-id='{{item.id}}'
+            title='{{localize "DOCUMENT.Update"}}'
           >
             <i class='fas fa-edit'></i>
           </a>
+
           <a
-            class='item-control item-delete'
-            title='{{localize "DOCUMENT.Delete" type='spell'}}'
+            data-action='itemDelete'
+            data-item-id='{{item.id}}'
+            title='{{localize "DOCUMENT.Delete"}}'
           >
             <i class='fas fa-trash'></i>
           </a>
+
         </div>
+
       </li>
+
     {{/each}}
+
   {{/each}}
+
 </ol>
