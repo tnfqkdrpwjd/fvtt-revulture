@@ -1,6 +1,7 @@
-{{! This template is a fallback for when items don't have more specific templates. }}
-{{! Generally, you'll want to make more specific templates when possible. }}
+{{! systems/fvtt-revulture/templates/item/item-sheet.hbs }}
+
 <form class='{{cssClass}}' autocomplete='off'>
+
   <header class='sheet-header'>
     <img
       class='profile-img'
@@ -8,28 +9,49 @@
       data-edit='img'
       title='{{item.name}}'
     />
+
     <div class='header-fields'>
-      <h1 class='charname'><input
+      <h1 class='charname'>
+        <input
           name='name'
           type='text'
           value='{{item.name}}'
           placeholder='Name'
-        /></h1>
+        />
+      </h1>
     </div>
   </header>
 
-  {{! Sheet Tab Navigation }}
+  {{! Navigation }}
   <nav class='sheet-tabs tabs' data-group='primary'>
-    <a class='item' data-tab='description'>Description</a>
-    <a class='item' data-tab='attributes'>Attributes</a>
+
+    <a
+      class='item {{tabs.description.cssClass}}'
+      data-action='changeTab'
+      data-tab='description'
+    >
+      Description
+    </a>
+
+    <a
+      class='item {{tabs.attributes.cssClass}}'
+      data-action='changeTab'
+      data-tab='attributes'
+    >
+      Attributes
+    </a>
+
   </nav>
 
-  {{! Sheet Body }}
+  {{! Body }}
   <section class='sheet-body'>
 
-    {{! Description Tab }}
-    <div class='tab' data-group='primary' data-tab='description'>
-      {{! Editors must receive enriched text data from getData to properly handle rolls }}
+    {{! Description }}
+    <div
+      class='tab description {{tabs.description.cssClass}}'
+      data-group='primary'
+      data-tab='description'
+    >
       {{editor
         enrichedDescription
         target='system.description'
@@ -39,9 +61,50 @@
       }}
     </div>
 
-    {{! Attributes Tab }}
-    <div class='tab attributes' data-group='primary' data-tab='attributes'>
-      {{! As you add new fields, add them in here! }}
+    {{! Attributes }}
+    <div
+      class='tab attributes {{tabs.attributes.cssClass}}'
+      data-group='primary'
+      data-tab='attributes'
+    >
+
+      {{! Example fields }}
+      {{#if (eq item.type 'spell')}}
+
+        <div class='form-group'>
+          <label for='spell-level'>
+            Spell Level
+          </label>
+
+          <input
+            id='spell-level'
+            type='number'
+            name='system.spellLevel'
+            value='{{system.spellLevel}}'
+          />
+        </div>
+
+      {{/if}}
+
+      {{#if (eq item.type 'item')}}
+
+        <div class='form-group'>
+          <label for='item-formula'>
+            Roll Formula
+          </label>
+
+          <input
+            id='item-formula'
+            type='text'
+            name='system.formula'
+            value='{{system.formula}}'
+          />
+        </div>
+
+      {{/if}}
+
     </div>
+
   </section>
+
 </form>

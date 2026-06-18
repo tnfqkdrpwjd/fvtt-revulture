@@ -1,7 +1,4 @@
-import {
-  onManageActiveEffect,
-  prepareActiveEffectCategories,
-} from '../helpers/effects.mjs';
+import { prepareActiveEffectCategories } from '../helpers/effects.mjs';
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
 
@@ -221,18 +218,43 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
   }
 
   async onEffectCreate(event, target) {
-    return onManageActiveEffect.call(this, event);
-  }
+    const li = target.closest('[data-effect-type]');
 
-  async onEffectToggle(event, target) {
-    return onManageActiveEffect.call(this, event);
+    return this.actor.createEmbeddedDocuments('ActiveEffect', [
+      {
+        name: game.i18n.format('DOCUMENT.New', {
+          type: game.i18n.localize('DOCUMENT.ActiveEffect'),
+        }),
+        img: 'icons/svg/aura.svg',
+        origin: this.actor.uuid,
+        duration: {
+          rounds: li?.dataset.effectType === 'temporary' ? 1 : undefined,
+        },
+        disabled: li?.dataset.effectType === 'inactive',
+      },
+    ]);
   }
 
   async onEffectEdit(event, target) {
-    return onManageActiveEffect.call(this, event);
+    const li = target.closest('[data-effect-id]');
+    const effect = this.actor.effects.get(li.dataset.effectId);
+
+    return effect?.sheet.render(true);
   }
 
   async onEffectDelete(event, target) {
-    return onManageActiveEffect.call(this, event);
+    const li = target.closest('[data-effect-id]');
+    const effect = this.actor.effects.get(li.dataset.effectId);
+
+    return effect?.delete();
+  }
+
+  async onEffectToggle(event, target) {
+    const li = target.closest('[data-effect-id]');
+    const effect = this.actor.effects.get(li.dataset.effectId);
+
+    return effect?.update({
+      disabled: !effect.disabled,
+    });
   }
 }

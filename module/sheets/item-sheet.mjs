@@ -18,7 +18,8 @@ export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
   /** @override */
   static DEFAULT_OPTIONS = {
     actions: {
-      effectControl: FvttRevultureItemSheet._onEffectControl,
+      effectControl: FvttRevultureItemSheet.prototype.onEffectControl,
+      changeTab: FvttRevultureItemSheet.prototype.onChangeTab,
     },
     position: {
       width: 520,
@@ -63,17 +64,18 @@ export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
     const context = await super._prepareContext(options);
 
     // Use a safe clone of the item data for further operations.
-    const itemData = this.document.toPlainObject();
+    context.item = this.item;
+    context.system = this.item.system;
+    context.flags = this.item.flags;
 
     // Enrich description info for display
     // Enrichment turns text like `[[/r 1d20]]` into buttons
     context.enrichedDescription = await TextEditor.enrichHTML(
-      this.item.system.description,
+      this.item.system.description ?? '',
       {
         // Whether to show secret blocks in the finished html
         secrets: this.document.isOwner,
         // Necessary in v11, can be removed in v12
-        async: true,
         // Data to fill in for inline rolls
         rollData: this.item.getRollData(),
         // Relative UUID resolution
@@ -82,8 +84,6 @@ export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
     );
 
     // Add the item's data to context.data for easier access, as well as flags.
-    context.system = itemData.system;
-    context.flags = itemData.flags;
 
     // Adding a pointer to CONFIG.FVTT_REVULTURE
     context.config = CONFIG.FVTT_REVULTURE;
@@ -93,6 +93,8 @@ export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
 
     //get the tabs for the item sheet
     context.tabs = this._getTabs();
+    context.editable = this.isEditable;
+
     return context;
   }
 
@@ -108,5 +110,14 @@ export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
     // Roll handlers, click handlers, etc. would go here.
 
     // Active Effect management
+  }
+
+  onEffectControl(event, target) {
+    return onManageActiveEffect(event, this.item);
+  }
+
+  onChangeTab(event, target) {
+    this.tabGroups.primary = target.dataset.tab;
+    this.render();
   }
 }
