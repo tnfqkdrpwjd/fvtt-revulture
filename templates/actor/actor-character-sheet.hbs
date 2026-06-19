@@ -202,9 +202,17 @@
       data-group="primary"
       data-tab="description">
 
-      <div class="biography-content">
+      {{!-- <div class="biography-content">
         {{{enrichedBiography}}}
-      </div>
+      </div> --}}
+
+      {{editor
+    enrichedBiography
+    target='system.biography'
+    engine='prosemirror'
+    button=true
+    editable=editable
+  }}
 
     </div>
 
