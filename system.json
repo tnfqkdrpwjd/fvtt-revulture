@@ -19,10 +19,10 @@
 
   "documentTypes": {
     "Actor": {
-      "character": {}
-      // "chevalier": {},
-      // "fiancee": {},
-      // "npc": {}
+      "character": {},
+      "chevalier": {},
+      "fiancee": {},
+      "npc": {}
     },
     "Item": {
       "item": {},
