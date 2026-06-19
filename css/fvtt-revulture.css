@@ -236,17 +236,6 @@
   height: 100%;
   margin: 0;
 }
-//추가한 부분
-.fvtt-revulture .character {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.fvtt-revulture .sheet-body {
-  flex: 1;
-  min-height: 0;
-}
 .fvtt-revulture .sheet-tabs {
   flex: 0;
 }
