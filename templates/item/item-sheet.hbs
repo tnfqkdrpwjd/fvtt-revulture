@@ -46,19 +46,18 @@
   {{! Body }}
   <section class='sheet-body'>
 
-    {{! Description }}
+    {{! Description Tab }}
     <div
       class='tab description {{tabs.description.cssClass}}'
       data-group='primary'
       data-tab='description'
     >
-      {{editor
-        enrichedDescription
-        target='system.description'
-        engine='prosemirror'
-        button=true
-        editable=editable
-      }}
+
+      <textarea
+        name='system.biography'
+        rows='12'
+      >{{system.biography}}</textarea>
+
     </div>
 
     {{! Attributes }}
