@@ -17,7 +17,7 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
       itemCreate: FvttRevultureActorSheet.prototype.onItemCreate,
       roll: FvttRevultureActorSheet.prototype.onRoll,
 
-      changeTab: FvttRevultureActorSheet.prototype._onChangeTab,
+      changeTab: FvttRevultureActorSheet.prototype.onChangeTab,
 
       effectCreate: FvttRevultureActorSheet.prototype.onEffectCreate,
       effectToggle: FvttRevultureActorSheet.prototype.onEffectToggle,
@@ -98,6 +98,43 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
     );
 
     return context;
+  }
+
+  /** @override */
+  _onRender(context, options) {
+    super._onRender(context, options);
+    if (!this.isEditable) return;
+    this._activateEditors();
+  }
+
+  _activateEditors() {
+    const editors = this.element.querySelectorAll('.editor');
+    for (const editorDiv of editors) {
+      const button = editorDiv.querySelector('.editor-edit');
+      const content = editorDiv.querySelector('.editor-content');
+      if (!button || !content) continue;
+
+      button.addEventListener(
+        'click',
+        async (event) => {
+          event.preventDefault();
+          const target = content.dataset.edit;
+          button.remove();
+
+          await foundry.applications.ux.TextEditor.implementation.create(
+            {
+              target,
+              engine: content.dataset.engine || 'prosemirror',
+              collaborate: content.dataset.collaborate === 'true',
+              document: this.document,
+              fieldName: target,
+            },
+            content.innerHTML,
+          );
+        },
+        { once: true },
+      );
+    }
   }
 
   /**
@@ -215,7 +252,7 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
     }
   }
 
-  _onChangeTab(event, target) {
+  onChangeTab(event, target) {
     this.tabGroups.primary = target.dataset.tab;
     this.render(false);
   }

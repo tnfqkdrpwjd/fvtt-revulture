@@ -113,6 +113,7 @@ export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
     // Roll handlers, click handlers, etc. would go here.
 
     // Active Effect management
+    this._activateEditors();
   }
 
   onEffectControl(event, target) {
@@ -122,5 +123,40 @@ export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
   onChangeTab(event, target) {
     this.tabGroups.primary = target.dataset.tab;
     this.render();
+  }
+
+  /**
+   * Manually activate ProseMirror editors, since AppV2 no longer does this automatically.
+   */
+  _activateEditors() {
+    const editors = this.element.querySelectorAll('.editor');
+    for (const editorDiv of editors) {
+      const button = editorDiv.querySelector('.editor-edit');
+      const content = editorDiv.querySelector('.editor-content');
+      if (!button || !content) continue;
+
+      button.addEventListener(
+        'click',
+        async (event) => {
+          event.preventDefault();
+          const target = content.dataset.edit;
+
+          // Remove the button so it doesn't get clicked again mid-edit
+          button.remove();
+
+          await foundry.applications.ux.TextEditor.implementation.create(
+            {
+              target,
+              engine: content.dataset.engine || 'prosemirror',
+              collaborate: content.dataset.collaborate === 'true',
+              document: this.document,
+              fieldName: target,
+            },
+            content.innerHTML,
+          );
+        },
+        { once: true },
+      );
+    }
   }
 }
