@@ -107,10 +107,10 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
    *
    * @param {object} context The context object to mutate
    */
-  // _prepareCharacterData(context) {
-  //   // This is where you can enrich character-specific editor fields
-  //   // or setup anything else that's specific to this type
-  // }
+  _prepareCharacterData(context) {
+    // This is where you can enrich character-specific editor fields
+    // or setup anything else that's specific to this type
+  }
 
   // async _onSubmitForm(formConfig, event) {
   //   console.log('FORM SUBMIT');
