@@ -17,6 +17,7 @@ export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
 ) {
   /** @override */
   static DEFAULT_OPTIONS = foundry.utils.mergeObject(super.DEFAULT_OPTIONS, {
+    classes: ['fvtt-revulture', 'sheet', 'item'],
     actions: {
       effectControl: FvttRevultureItemSheet.prototype.onEffectControl,
       changeTab: FvttRevultureItemSheet.prototype.onChangeTab,
