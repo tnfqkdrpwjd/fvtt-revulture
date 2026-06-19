@@ -16,7 +16,7 @@ export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
   ItemSheetV2,
 ) {
   /** @override */
-  static DEFAULT_OPTIONS = {
+  static DEFAULT_OPTIONS = foundry.utils.mergeObject(super.DEFAULT_OPTIONS, {
     actions: {
       effectControl: FvttRevultureItemSheet.prototype.onEffectControl,
       changeTab: FvttRevultureItemSheet.prototype.onChangeTab,
@@ -26,11 +26,13 @@ export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
       height: 480,
     },
     window: {
-      icon: 'item icon', // You can now add an icon to the header
+      icon: 'fa-solid fa-suitcase',
       title: 'item.form.title',
+    }, // icon도 'item icon'은 placeholder처럼 보여요
+    form: {
+      submitOnChange: true,
     },
-    form: { submitOnChange: true },
-  };
+  });
 
   /** @override */
   static PARTS = {
