@@ -246,12 +246,12 @@
 }
 
 //추가한 코드 
-/* .tab.description {
+.tab.description {
   display: flex;
   flex-direction: column;
-  height: 100%;
-} */
-.description textarea {
+  height: 95%;
+}
+.tab.description textarea {
   flex: 1;
   width: 100%;
   min-height: 200px;
