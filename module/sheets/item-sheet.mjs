@@ -112,9 +112,6 @@ export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
     if (!this.isEditable) return;
 
     // Roll handlers, click handlers, etc. would go here.
-
-    // Active Effect management
-    this._activateEditors();
   }
 
   onEffectControl(event, target) {

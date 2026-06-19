@@ -104,7 +104,6 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
   _onRender(context, options) {
     super._onRender(context, options);
     if (!this.isEditable) return;
-    this._activateEditors();
   }
 
   /**
