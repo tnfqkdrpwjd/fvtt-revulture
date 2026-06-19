@@ -117,13 +117,18 @@
 }
 
 // Example style for FvttRevulture (can be removed if not needed).
-.item-formula {
-  flex: 0 0 200px;
-  padding: 0 8px;
-}
+// .item-formula {
+//   flex: 0 0 200px;
+//   padding: 0 8px;
+// }
 
-.sheet-header {
-  height: 28px;
-  font-size: 16px;
-  font-weight: bold;
+// .sheet-header {
+//   height: 28px;
+//   font-size: 16px;
+//   font-weight: bold;
+// }
+
+.profile-img {
+  flex: 0 0 100px;
+  height: 100px;
 }
