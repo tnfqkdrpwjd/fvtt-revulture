@@ -196,25 +196,14 @@
       </section>
 
     </div>
+<div
+  class="tab description {{tabs.description.cssClass}}"
+  data-group="primary"
+  data-tab="description">
 
-    <div
-      class="tab description {{tabs.description.cssClass}}"
-      data-group="primary"
-      data-tab="description">
+  <textarea name="system.biography" rows="12">{{system.biography}}</textarea>
 
-      {{!-- <div class="biography-content">
-        {{{enrichedBiography}}}
-      </div> --}}
-
-      {{editor
-    enrichedBiography
-    target='system.biography'
-    engine='prosemirror'
-    button=true
-    editable=editable
-  }}
-
-    </div>
+</div>
 
     <div
       class="tab items {{tabs.items.cssClass}}"

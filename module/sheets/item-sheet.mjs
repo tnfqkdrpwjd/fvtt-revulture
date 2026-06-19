@@ -125,38 +125,4 @@ export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
     this.tabGroups.primary = target.dataset.tab;
     this.render();
   }
-
-  /**
-   * Manually activate ProseMirror editors, since AppV2 no longer does this automatically.
-   */
-  _activateEditors() {
-    const editors = this.element.querySelectorAll('.editor');
-    for (const editorDiv of editors) {
-      const button = editorDiv.querySelector('.editor-edit');
-      const contentDiv = editorDiv.querySelector('.editor-content');
-      if (!button || !contentDiv) continue;
-
-      button.addEventListener(
-        'click',
-        async (event) => {
-          event.preventDefault();
-          const target = contentDiv.dataset.edit;
-          const initialContent = contentDiv.innerHTML;
-
-          button.remove();
-
-          await foundry.applications.ux.ProseMirrorEditor.create(
-            contentDiv, // target: 실제 HTMLElement
-            initialContent, // content: 초기 HTML 문자열
-            {
-              document: this.document,
-              fieldName: target,
-              collaborate: contentDiv.dataset.collaborate === 'true',
-            },
-          );
-        },
-        { once: true },
-      );
-    }
-  }
 }
