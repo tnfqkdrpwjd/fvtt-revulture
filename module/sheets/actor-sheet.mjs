@@ -107,27 +107,23 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
    *
    * @param {object} context The context object to mutate
    */
-  _prepareCharacterData(context) {
-    // This is where you can enrich character-specific editor fields
-    // or setup anything else that's specific to this type
-  }
+  // _prepareCharacterData(context) {
+  //   // This is where you can enrich character-specific editor fields
+  //   // or setup anything else that's specific to this type
+  // }
 
-  async _prepareSubmitData(event, form, formData) {
-    return formData.object;
-  }
+  // async _onSubmitForm(formConfig, event) {
+  //   console.log('FORM SUBMIT');
 
-  async _onSubmitForm(formConfig, event) {
-    console.log('FORM SUBMIT');
+  //   console.log('this.form', this.form);
 
-    console.log('this.form', this.form);
+  //   const fd = new foundry.applications.ux.FormDataExtended(this.form);
 
-    const fd = new foundry.applications.ux.FormDataExtended(this.form);
+  //   console.log('FORM DATA');
+  //   console.log(fd.object);
 
-    console.log('FORM DATA');
-    console.log(fd.object);
-
-    return super._onSubmitForm(formConfig, event);
-  }
+  //   return super._onSubmitForm(formConfig, event);
+  // }
   /**
    * Organize and classify Items for Actor sheets.
    *
