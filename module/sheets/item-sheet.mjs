@@ -132,27 +132,26 @@ export class FvttRevultureItemSheet extends HandlebarsApplicationMixin(
     const editors = this.element.querySelectorAll('.editor');
     for (const editorDiv of editors) {
       const button = editorDiv.querySelector('.editor-edit');
-      const content = editorDiv.querySelector('.editor-content');
-      if (!button || !content) continue;
+      const contentDiv = editorDiv.querySelector('.editor-content');
+      if (!button || !contentDiv) continue;
 
       button.addEventListener(
         'click',
         async (event) => {
           event.preventDefault();
-          const target = content.dataset.edit;
+          const target = contentDiv.dataset.edit;
+          const initialContent = contentDiv.innerHTML;
 
-          // Remove the button so it doesn't get clicked again mid-edit
           button.remove();
 
-          await foundry.applications.ux.TextEditor.implementation.create(
+          await foundry.applications.ux.ProseMirrorEditor.create(
+            contentDiv, // target: 실제 HTMLElement
+            initialContent, // content: 초기 HTML 문자열
             {
-              target,
-              engine: content.dataset.engine || 'prosemirror',
-              collaborate: content.dataset.collaborate === 'true',
               document: this.document,
               fieldName: target,
+              collaborate: contentDiv.dataset.collaborate === 'true',
             },
-            content.innerHTML,
           );
         },
         { once: true },
