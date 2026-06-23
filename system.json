@@ -20,8 +20,6 @@
   "documentTypes": {
     "Actor": {
       "character": {},
-      "chevalier": {},
-      "fiancee": {},
       "npc": {}
     },
     "Item": {

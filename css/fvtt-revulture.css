@@ -381,3 +381,15 @@
 .fvtt-revulture .effects .item .effect-controls {
   border: none;
 }
+
+.window-scroll-body {
+  /* 부모 창의 크기에 꽉 차게 만들거나, 고정 높이를 줍니다. */
+  height: 100%;
+  max-height: 500px; /* 상황에 맞게 조절 */
+
+  /* 세로 내용이 넘치면 스크롤바 생성 */
+  overflow-y: auto;
+
+  /* Foundry 코어 스크롤바 스타일 테마 적용 (선택 사항) */
+  scrollbar-width: thin;
+}

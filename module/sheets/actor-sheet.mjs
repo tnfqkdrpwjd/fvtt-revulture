@@ -37,6 +37,8 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
     },
     tag: 'form', // The default is "div"
     window: {
+      // scrollY: [items, features, spells, effects],
+      resizable: true,
       icon: 'fa-solid fa-user', // You can now add an icon to the header //css
       title: 'actor.form.title',
     },
@@ -47,6 +49,8 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
     sheet: {
       template:
         'systems/fvtt-revulture/templates/actor/actor-character-sheet.hbs',
+
+      scrollable: ['.window-scroll-body'],
     },
   };
 
