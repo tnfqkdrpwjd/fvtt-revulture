@@ -21,3 +21,11 @@ FVTT_REVULTURE.abilityAbbreviations = {
   wis: 'FVTT_REVULTURE.Ability.Wis.abbr',
   cha: 'FVTT_REVULTURE.Ability.Cha.abbr',
 };
+
+FVTT_REVULTURE.Tab = {
+  now: 'FVTT_REVULTURE.Tab.now',
+  achievementArchive: 'FVTT_REVULTURE.Tab.achievementArchive',
+  weaponArchive: 'FVTT_REVULTURE.Tab.weaponArchive',
+  chronicleArchive: 'FVTT_REVULTURE.Tab.chronicleArchive',
+  engagementArchive: 'FVTT_REVULTURE.Tab.engagementArchive',
+};

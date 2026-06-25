@@ -91,7 +91,6 @@
             />
           </div>
         </div>
-
       </div>
     </div>
   </header>
@@ -101,36 +100,36 @@
     <a
       class="item {{tabs.features.cssClass}}"
       data-action="changeTab"
-      data-tab="features">
-      11
+      data-tab="now">
+      {{localize tabs.now.label}}
     </a>
 
     <a
       class="item {{tabs.description.cssClass}}"
       data-action="changeTab"
-      data-tab="description">
-      22
+      data-tab="achievementArchive">
+      {{localize tabs.achievementArchive.label}}
     </a>
 
     <a
       class="item {{tabs.items.cssClass}}"
       data-action="changeTab"
-      data-tab="items">
-      33
+      data-tab="weaponArchive">
+      {{localize tabs.weaponArchive.label}}
     </a>
 
     <a
       class="item {{tabs.spells.cssClass}}"
       data-action="changeTab"
-      data-tab="spells">
-      Spells
+      data-tab="chronicleArchive">
+      {{localize tabs.chronicleArchive.label}}
     </a>
 
     <a
       class="item {{tabs.effects.cssClass}}"
       data-action="changeTab"
-      data-tab="effects">
-      Effects
+      data-tab="engagementArchive">
+      {{localize tabs.engagementArchive.label}}
     </a>
 
   </nav>
@@ -220,6 +219,15 @@
       data-tab="spells">
 
       {{> "systems/fvtt-revulture/templates/actor/parts/actor-spells.hbs"}}
+
+    </div>
+
+    <div
+      class="tab effects flexcol {{tabs.effects.cssClass}}"
+      data-group="primary"
+      data-tab="effects">
+
+      {{> "systems/fvtt-revulture/templates/actor/parts/actor-effects.hbs"}}
 
     </div>
 

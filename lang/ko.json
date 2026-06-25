@@ -1,16 +1,16 @@
 {
   "FVTT_REVULTURE": {
     "Ability": {
-      "Str": { "long": "Strength", "abbr": "str" },
-      "Con": { "long": "Constitution", "abbr": "con" },
-      "Dex": { "long": "Dexterity", "abbr": "dex" },
-      "Int": { "long": "Intelligence", "abbr": "int" },
-      "Wis": { "long": "Wisdom", "abbr": "wis" },
-      "Cha": { "long": "Charisma", "abbr": "cha" }
+      "Str": { "long": "힘", "abbr": "str" },
+      "Con": { "long": "체력", "abbr": "con" },
+      "Dex": { "long": "민첩성", "abbr": "dex" },
+      "Int": { "long": "지능", "abbr": "int" },
+      "Wis": { "long": "지혜", "abbr": "wis" },
+      "Cha": { "long": "매력", "abbr": "cha" }
     },
     "SheetLabels": {
-      "Actor": "FvttRevulture Actor Sheet",
-      "Item": "FvttRevulture Item Sheet"
+      "Actor": "FvttRevulture 액터 Sheet",
+      "Item": "FvttRevulture 아이템 Sheet"
     },
     "Item": {
       "Spell": {
@@ -19,11 +19,18 @@
       }
     },
     "Effect": {
-      "Source": "Source",
-      "Toggle": "Toggle Effect",
-      "Temporary": "Temporary Effects",
-      "Passive": "Passive Effects",
-      "Inactive": "Inactive Effects"
+      "Source": "소스",
+      "Toggle": "토글 효과",
+      "Temporary": "임시 효과",
+      "Passive": "패시브 효과",
+      "Inactive": "비활성 효과"
+    },
+    "Tab": {
+      "sheet": "시트",
+      "achievementArchive": "어치브먼트 아카이브",
+      "weaponArchive": "웨펀 아카이브",
+      "chronicleArchive": "크로니클 아카이브",
+      "engagementArchive": "인게이지먼트 아카이브"
     }
   },
 
@@ -37,7 +44,11 @@
     "Item": {
       "item": "아이템",
       "feature": "기능",
-      "spell": "주문"
+      "spell": "주문",
+      "achievement": "어치브먼트",
+      "weapon": "웨펀",
+      "chronicle": "크로니클",
+      "engagement": "인게이지먼트"
     }
   }
 }

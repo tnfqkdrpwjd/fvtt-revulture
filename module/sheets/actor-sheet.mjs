@@ -1,4 +1,6 @@
 import { prepareActiveEffectCategories } from '../helpers/effects.mjs';
+import { FVTT_REVULTURE } from '../helpers/config.mjs';
+
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
 
@@ -168,19 +170,35 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
   }
 
   /* -------------------------------------------- */
-  tabGroups = { primary: 'features' };
+  tabGroups = { primary: 'now' };
 
   _getTabs() {
     const tabs = {
-      features: { id: 'features', group: 'primary', label: 'Features' },
-      description: {
-        id: 'description',
+      now: {
+        id: 'now',
         group: 'primary',
-        label: 'Description',
+        label: 'FVTT_REVULTURE.Tab.now',
       },
-      items: { id: 'items', group: 'primary', label: 'Items' },
-      spells: { id: 'spells', group: 'primary', label: 'Spells' },
-      effects: { id: 'effects', group: 'primary', label: 'Effects' },
+      achievementArchive: {
+        id: 'achievementArchive',
+        group: 'primary',
+        label: 'FVTT_REVULTURE.Tab.achievementArchive',
+      },
+      weaponArchive: {
+        id: 'weaponArchive',
+        group: 'primary',
+        label: 'FVTT_REVULTURE.Tab.weaponArchive',
+      },
+      chronicleArchive: {
+        id: 'chronicleArchive',
+        group: 'primary',
+        label: 'FVTT_REVULTURE.Tab.chronicleArchive',
+      },
+      engagementArchive: {
+        id: 'engagementArchive',
+        group: 'primary',
+        label: 'FVTT_REVULTURE.Tab.engagementArchive',
+      },
     };
     for (const v of Object.values(tabs)) {
       v.active = this.tabGroups[v.group] === v.id;

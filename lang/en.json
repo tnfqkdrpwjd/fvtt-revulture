@@ -24,6 +24,13 @@
       "Temporary": "Temporary Effects",
       "Passive": "Passive Effects",
       "Inactive": "Inactive Effects"
+    },
+    "Tab": {
+      "sheet": "Sheet",
+      "achievementArchive": "Achievement Archive",
+      "weaponArchive": "Weapon Archive",
+      "chronicleArchive": "Chronicle Archive",
+      "engagementArchive": "Engagement Archive"
     }
   },
 
@@ -37,7 +44,11 @@
     "Item": {
       "item": "Item",
       "feature": "Feature",
-      "spell": "Spell"
+      "spell": "Spell",
+      "achievement": "Achievement",
+      "weapon": "Weapon",
+      "chronicle": "Chronicle",
+      "engagement": "Engagement"
     }
   }
 }
