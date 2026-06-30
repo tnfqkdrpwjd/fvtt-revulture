@@ -170,14 +170,14 @@ export class FvttRevultureActorSheet extends HandlebarsApplicationMixin(
   }
 
   /* -------------------------------------------- */
-  tabGroups = { primary: 'now' };
+  tabGroups = { primary: 'sheet' };
 
   _getTabs() {
     const tabs = {
-      now: {
-        id: 'now',
+      sheet: {
+        id: 'sheet',
         group: 'primary',
-        label: 'FVTT_REVULTURE.Tab.now',
+        label: 'FVTT_REVULTURE.Tab.sheet',
       },
       achievementArchive: {
         id: 'achievementArchive',

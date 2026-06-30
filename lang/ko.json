@@ -1,16 +1,26 @@
 {
   "FVTT_REVULTURE": {
     "Ability": {
-      "Str": { "long": "힘", "abbr": "str" },
-      "Con": { "long": "체력", "abbr": "con" },
-      "Dex": { "long": "민첩성", "abbr": "dex" },
-      "Int": { "long": "지능", "abbr": "int" },
-      "Wis": { "long": "지혜", "abbr": "wis" },
-      "Cha": { "long": "매력", "abbr": "cha" }
+      "Str": { "long": "Strength", "abbr": "str" },
+      "Con": { "long": "Constitution", "abbr": "con" },
+      "Dex": { "long": "Dexterity", "abbr": "dex" },
+      "Int": { "long": "Intelligence", "abbr": "int" },
+      "Wis": { "long": "Wisdom", "abbr": "wis" },
+      "Cha": { "long": "Charisma", "abbr": "cha" }
     },
     "SheetLabels": {
       "Actor": "FvttRevulture 액터 Sheet",
       "Item": "FvttRevulture 아이템 Sheet"
+    },
+    "SheetSections": {
+      "Frame": "프레임",
+      "BoostMove": "부스트 무브",
+      "NormalMove": "노말 무브",
+      "Energy": "지아드 에너지",
+      "Weapon": "웨펀",
+      "Ability": "어빌리티",
+      "Chronicle": "크로니클",
+      "Engagement": "인게이지먼트"
     },
     "Item": {
       "Spell": {
@@ -26,11 +36,11 @@
       "Inactive": "비활성 효과"
     },
     "Tab": {
-      "sheet": "시트",
-      "achievementArchive": "어치브먼트 아카이브",
-      "weaponArchive": "웨펀 아카이브",
-      "chronicleArchive": "크로니클 아카이브",
-      "engagementArchive": "인게이지먼트 아카이브"
+      "Sheet": "시트",
+      "AchievementArchive": "어치브먼트 아카이브",
+      "WeaponArchive": "웨펀 아카이브",
+      "ChronicleArchive": "크로니클 아카이브",
+      "EngagementArchive": "인게이지먼트 아카이브"
     }
   },
 
@@ -45,10 +55,10 @@
       "item": "아이템",
       "feature": "기능",
       "spell": "주문",
-      "achievement": "어치브먼트",
-      "weapon": "웨펀",
-      "chronicle": "크로니클",
-      "engagement": "인게이지먼트"
+      "Achievement": "어치브먼트",
+      "Weapon": "웨펀",
+      "Chronicle": "크로니클",
+      "Engagement": "인게이지먼트"
     }
   }
 }

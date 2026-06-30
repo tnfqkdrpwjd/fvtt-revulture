@@ -22,10 +22,21 @@ FVTT_REVULTURE.abilityAbbreviations = {
   cha: 'FVTT_REVULTURE.Ability.Cha.abbr',
 };
 
+FVTT_REVULTURE.Sections = {
+  frame: 'FVTT_REVULTURE.SheetSections.Frame',
+  boostMove: 'FVTT_REVULTURE.SheetSections.BoostMove',
+  normalMove: 'FVTT_REVULTURE.SheetSections.NormalMove',
+  energy: 'FVTT_REVULTURE.SheetSections.Energy',
+  weapon: 'FVTT_REVULTURE.SheetSections.Weapon',
+  ability: 'FVTT_REVULTURE.SheetSections.Ability',
+  chronicle: 'FVTT_REVULTURE.SheetSections.Chronicle',
+  engagement: 'FVTT_REVULTURE.SheetSections.Engagement',
+};
+
 FVTT_REVULTURE.Tab = {
-  now: 'FVTT_REVULTURE.Tab.now',
-  achievementArchive: 'FVTT_REVULTURE.Tab.achievementArchive',
-  weaponArchive: 'FVTT_REVULTURE.Tab.weaponArchive',
-  chronicleArchive: 'FVTT_REVULTURE.Tab.chronicleArchive',
-  engagementArchive: 'FVTT_REVULTURE.Tab.engagementArchive',
+  sheet: 'FVTT_REVULTURE.Tab.Sheet',
+  achievementArchive: 'FVTT_REVULTURE.Tab.AchievementArchive',
+  weaponArchive: 'FVTT_REVULTURE.Tab.WeaponArchive',
+  chronicleArchive: 'FVTT_REVULTURE.Tab.ChronicleArchive',
+  engagementArchive: 'FVTT_REVULTURE.Tab.EngagementArchive',
 };

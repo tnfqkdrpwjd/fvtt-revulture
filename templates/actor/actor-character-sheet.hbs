@@ -21,72 +21,84 @@
           placeholder="Name"
         />
       </h1>
+      <h3 class="frame">
+        {{localize config.Sections.frame}}
+        <br />
+        <input
+        id="frame"
+          name="frame"
+          type="text"
+          value="{{actor.frame}}"
+          placeholder="Frame"
+        />
+      </h3>
 
       <div class="resources grid grid-3col">
 
         <div class="resource flex-group-center">
-          <label for="health-value" class="resource-label">
-            Health
+          <label for="boost-move" class="resource-label">
+            {{localize config.Sections.boostMove}}
           </label>
 
           <div class="resource-content flexrow flex-center flex-between">
             <input
-              id="health-value"
+              id="boost-move"
               type="text"
-              name="system.health.value"
-              value="{{system.health.value}}"
+              name="system.boostMove.value"
+              value="{{system.boostMove.value}}"
+              data-dtype="Number"
+            />
+
+            <span>까지</span>
+
+            <input
+              id="boost-move-cost"
+              type="text"
+              name="system.boostMove.cost"
+              value="{{system.boostMove.cost}}"
+              data-dtype="Number"
+            />
+          </div>
+          <span>개</span>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="normal-move" class="resource-label">
+            {{localize config.Sections.normalMove}}
+          </label>
+
+          <div class="resource-content flexrow flex-center flex-between">
+            <input
+              id="normal-move"
+              type="text"
+              name="system.normalMove.value"
+              value="{{system.normalMove.value}}"
               data-dtype="Number"
             />
 
             <span>/</span>
 
             <input
-              id="health-max"
+              id="normal-move-cost"
               type="text"
-              name="system.health.max"
-              value="{{system.health.max}}"
+              name="system.normalMove.cost"
+              value="{{system.normalMove.cost}}"
               data-dtype="Number"
             />
           </div>
         </div>
 
         <div class="resource flex-group-center">
-          <label for="power-value" class="resource-label">
-            Power
+          <label for="energy-value" class="resource-label">
+            {{localize config.Sections.energy}}
           </label>
 
           <div class="resource-content flexrow flex-center flex-between">
             <input
-              id="power-value"
+              id="energy-value"
               type="text"
-              name="system.power.value"
-              value="{{system.power.value}}"
-              data-dtype="Number"
-            />
-
-            <span>/</span>
-
-            <input
-              id="power-max"
-              type="text"
-              name="system.power.max"
-              value="{{system.power.max}}"
-              data-dtype="Number"
-            />
-          </div>
-        </div>
-
-        <div class="resource flex-group-center">
-          <label for="level-value" class="resource-label">
-            Level
-          </label>
-
-          <div class="resource-content flexrow flex-center flex-between">
-            <input
-              id="level-value"
-              type="text"
-              name="system.attributes.level.value"
-              value="{{system.attributes.level.value}}"
+              name="system.attributes.energy.value"
+              value="{{system.attributes.energy.value}}"
               data-dtype="Number"
             />
           </div>
@@ -100,8 +112,8 @@
     <a
       class="item {{tabs.features.cssClass}}"
       data-action="changeTab"
-      data-tab="now">
-      {{localize tabs.now.label}}
+      data-tab="sheet">
+      {{localize tabs.sheet.label}}
     </a>
 
     <a

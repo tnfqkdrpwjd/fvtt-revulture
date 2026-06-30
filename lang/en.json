@@ -12,6 +12,16 @@
       "Actor": "FvttRevulture Actor Sheet",
       "Item": "FvttRevulture Item Sheet"
     },
+    "SheetSections": {
+      "Frame": "Frame",
+      "BoostMove": "Boost Move",
+      "NormalMove": "Normal Move",
+      "Energy": "Ziad Energy",
+      "Weapon": "Weapon",
+      "Ability": "Ability",
+      "Chronicle": "Chronicle",
+      "Engagement": "Engagement"
+    },
     "Item": {
       "Spell": {
         "SpellLVL": "Level {level} Spells",

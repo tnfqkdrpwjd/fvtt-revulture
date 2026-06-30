@@ -1,0 +1,62 @@
+<ol class='items-list'>
+  <li class='item flexrow items-header'>
+    <div class='item-name'>
+      {{localize 'Name'}}
+    </div>
+
+    <div class='item-controls'>
+      <a
+        data-action='itemCreate'
+        data-type='feature'
+        title='{{localize "DOCUMENT.New"}}'
+      >
+        <i class='fas fa-plus'></i>
+        {{localize 'DOCUMENT.New'}}
+      </a>
+    </div>
+  </li>
+
+  {{#each features as |item|}}
+    <li class='item flexrow' data-item-id='{{item.id}}'>
+      <div class='item-name'>
+        <div class='item-image'>
+          <a
+            class='rollable'
+            data-action='roll'
+            data-roll-type='item'
+            data-item-id='{{item.id}}'
+          >
+            <img
+              src='{{item.img}}'
+              title='{{item.name}}'
+              width='24'
+              height='24'
+            />
+          </a>
+        </div>
+
+        <h4>{{item.name}}</h4>
+      </div>
+
+      <div class='item-controls'>
+
+        <a
+          data-action='itemEdit'
+          data-item-id='{{item.id}}'
+          title='{{localize "DOCUMENT.Update"}}'
+        >
+          <i class='fas fa-edit'></i>
+        </a>
+
+        <a
+          data-action='itemDelete'
+          data-item-id='{{item.id}}'
+          title='{{localize "DOCUMENT.Delete"}}'
+        >
+          <i class='fas fa-trash'></i>
+        </a>
+
+      </div>
+    </li>
+  {{/each}}
+</ol>
